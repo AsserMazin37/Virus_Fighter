@@ -16,9 +16,10 @@ public class Character extends ScreenAdapter{
 	Texture spaceship1 , spaceship2 , spaceship3 ,background;
 	ShapeRenderer sr;
 	Rectangle r1 , r2 , r3 , r4 , r5;
-	String Text1, Text2, Text3;
+	String Text1, Text2, Text3 , Text4 , Text5;
 	BitmapFont font;
-	
+	static int shipChoice;
+
 	
 	@Override
 	public void dispose () {
@@ -39,9 +40,12 @@ public class Character extends ScreenAdapter{
 		Text1 = "SpaceShip01";
 		Text2 = "SpaceShip02";
 		Text3 = "SpaceShip03";
+		Text4 = "WELCOME " + UserName.text;
+		Text5 = "Choose your Fighter";
 		r1 = new Rectangle();
 		r2 = new Rectangle();
 		r3 = new Rectangle();
+
 		
 	}
 	
@@ -68,6 +72,10 @@ public class Character extends ScreenAdapter{
 	       
 	       if(r1.contains(mouseX, mouseY)){
 	    	   game.batch.draw(spaceship1, -40, 100 ,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+	    	   if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+	               shipChoice= 1;
+	               game.setScreen(new Map(game));
+	           }
 	           }
 	       
 	       else
@@ -76,22 +84,30 @@ public class Character extends ScreenAdapter{
 
 	       if(r2.contains(mouseX,mouseY)) {
 	    	   game.batch.draw(spaceship2, 150 , 120 ,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+	    	   if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+	               shipChoice= 2;
+	               game.setScreen(new Map(game));
+	           }
 	       }
 	       else
 	    	   game.batch.draw(spaceship2, 90 , 80 ,Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.5f);
 	       
 	       if(r3.contains(mouseX,mouseY)) {
 	    	   game.batch.draw(spaceship3, 350 , 150 ,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+	    	   if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+	               shipChoice= 3;
+	               game.setScreen(new Map(game));
+	           }
 	       } 
 	       else
 	    	   game.batch.draw(spaceship3, 300 , 100 ,Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.5f);
 	       	      
 
-	      
+	       font.draw(game.batch,Text4,Gdx.graphics.getWidth()/2.9f,Gdx.graphics.getHeight()/1.25f);
 	       font.draw(game.batch,Text1,Gdx.graphics.getWidth()/10f,Gdx.graphics.getHeight()/3);
 	       font.draw(game.batch,Text2,Gdx.graphics.getWidth()/2.6f,Gdx.graphics.getHeight()/3);
 	       font.draw(game.batch,Text3,Gdx.graphics.getWidth()/1.4f,Gdx.graphics.getHeight()/3);
-	       
+	       font.draw(game.batch,Text5,Gdx.graphics.getWidth()/3.5f,Gdx.graphics.getHeight()/5);
 
 	       game.batch.end();
 	       /*sr.begin(ShapeRenderer.ShapeType.Filled);
