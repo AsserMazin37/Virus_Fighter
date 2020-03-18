@@ -22,7 +22,12 @@ public class VirusFighter extends Game{
 	@Override
 	public void render () {
 		super.render();
-		music.play();
+		//music.play();
+		if(MainMenu.pause == true) {
+			music.pause();
+		}
+		else
+			music.play();
 	}
 	
 	@Override

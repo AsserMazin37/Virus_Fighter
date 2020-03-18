@@ -1,20 +1,45 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Cursor.SystemCursor;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public class MainMenu extends ScreenAdapter {
 	SpriteBatch batch;
 	Texture img;
-	Rectangle startRec, exitRec, settingsRec;	
+	Rectangle rec;
+	Rectangle rec2;
+	Rectangle rec3;
+	Rectangle rec4;
+	Rectangle rec5;
+
+	
 	public static boolean check = false;
-	Texture startButton, exitButton, settingsButton, name;
+
+	Texture startButton;
+	Texture exitButton;
+	Texture musicButton;
+	Texture info;
+	Texture background;
+	Texture closeButton;
+	boolean show = false;
+	Texture name;
 	ShapeRenderer sr;
-		
+	public static boolean pause;
+	String status;
+	
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -28,11 +53,20 @@ public class MainMenu extends ScreenAdapter {
 		img = new Texture("BG.png");
 		startButton = new Texture("Start_BTN.png");
 		exitButton = new Texture("Exit_BTN.png");
-		settingsButton = new Texture("Settings_BTN.png");
+		info = new Texture("Info_BTN.png");
+		 status = "Music_BTN.png";
+		musicButton = new Texture(status);
+
 		name = new Texture("vfImage.png");
-		startRec = new Rectangle();
-		exitRec = new Rectangle();
-		settingsRec = new Rectangle();
+		rec = new Rectangle();
+		rec2 = new Rectangle();
+		rec3 = new Rectangle();
+		rec4 = new Rectangle();
+		rec5 = new Rectangle();
+
+		background = new Texture("Table_01.png");
+		closeButton = new Texture("Close_BTN.png");
+
 		sr = new ShapeRenderer();
 	}
 	
@@ -46,28 +80,66 @@ public class MainMenu extends ScreenAdapter {
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		game.batch.begin();
-		game.batch.draw(img, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());	
-		game.batch.draw(name, -20, 100, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
-		startRec.set(210, 200, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
-		exitRec.set(210, 300, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
-		settingsRec.set(10, 10, Gdx.graphics.getWidth()/11, Gdx.graphics.getHeight()/9);
-
 		int mouseX = Gdx.input.getX();
 		int mouseY = Gdx.input.getY();
+		rec.set(210, 200, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
+		rec2.set(210, 300, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
+		rec3.set(10, 10, Gdx.graphics.getWidth()/11, Gdx.graphics.getHeight()/9);
+		rec4.set(50,10,Gdx.graphics.getWidth()/11, Gdx.graphics.getHeight()/9);
+		rec5.set(450,50,closeButton.getWidth()/8,closeButton.getHeight()/8);
 
-		if(settingsRec.contains(mouseX,mouseY)) {
-			game.batch.draw(settingsButton, 10, 410, Gdx.graphics.getWidth()/12, Gdx.graphics.getHeight()/10);
-			if(Gdx.input.justTouched()) {
-				game.setScreen(new SettingsMenu(game));
+		
+		game.batch.draw(img, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+if(rec3.contains(mouseX,mouseY)) {
+			
+			game.batch.draw(musicButton, 10, 410, Gdx.graphics.getWidth()/14, Gdx.graphics.getHeight()/12);
+			if(Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+				
+				if(pause != true) {
+					pause = true;
+					status = "Music_BTN.png";
+
+				}
+				else {
+					pause = false;
+					
+
+				}
 			}
+			
 		}
 		else {
-			game.batch.draw(settingsButton, 10, 410, Gdx.graphics.getWidth()/11, Gdx.graphics.getHeight()/9);
+
+			game.batch.draw(musicButton, 10, 410, Gdx.graphics.getWidth()/13, Gdx.graphics.getHeight()/11);
 		}
-		if(startRec.contains(mouseX,mouseY)) {
+		if(rec4.contains(mouseX,mouseY)) {
+			game.batch.draw(info, 70, 410, Gdx.graphics.getWidth()/14, Gdx.graphics.getHeight()/12);
+			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
+				show = true;
+			}
+			
+		}
+		else {
+			game.batch.draw(info, 70, 410, Gdx.graphics.getWidth()/13, Gdx.graphics.getHeight()/11);
+		}
+		if(show == true) {
+			game.batch.draw(background, 100, 50, Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getHeight()/1.2f);
+			game.batch.draw(closeButton, 450, 400, closeButton.getWidth()/8,closeButton.getHeight()/8);
+			if(rec5.contains(mouseX,mouseY)) {
+				game.batch.draw(closeButton, 451, 400, closeButton.getWidth()/9,closeButton.getHeight()/9);
+
+				if(Gdx.input.isKeyJustPressed(Keys.ENTER))
+					show = false;
+			}
+
+		}		
+		else if(show == false){
+		game.batch.draw(name, -20, 100, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+		if(rec.contains(mouseX,mouseY)) {
 			game.batch.draw(startButton, 235, 200, Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/8);
-			if(Gdx.input.justTouched()) {
+
+			if(Gdx.input.isKeyPressed(Keys.ENTER)) {
 				UserName obj = new UserName();
 				obj.create();
 				obj.render();
@@ -76,22 +148,26 @@ public class MainMenu extends ScreenAdapter {
 		else
 			game.batch.draw(startButton, 210, 200, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
 
-		if(exitRec.contains(mouseX,mouseY)) {
+		if(rec2.contains(mouseX,mouseY)) {
 			game.batch.draw(exitButton, 235, 100, Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/8);
 		}
 		else {
 			game.batch.draw(exitButton, 210, 100, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
 		}
 		if(UserName.get() == true) {
-			game.setScreen(new MoveTo(game)); 
+			
+			game.setScreen(new Character(game));
 			
 		}
+	}
+		
+		
 		game.batch.end();
 				
 
 		/*sr.begin(ShapeRenderer.ShapeType.Filled);
 		sr.setColor(Color.RED);
-		sr.rect(rec2.x, rec2.y,Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/7);
+		sr.rect(rec5.x, rec5.y,closeButton.getWidth()/8,closeButton.getHeight()/8);
 		sr.end();*/
 	}
 
@@ -99,6 +175,7 @@ public class MainMenu extends ScreenAdapter {
 	public void hide() {
 		// TODO Auto-generated method stub
 		Gdx.input.setInputProcessor(null);
+		
 	}
 
 	@Override
