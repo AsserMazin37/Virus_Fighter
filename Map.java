@@ -1,54 +1,193 @@
 package com.mygdx.game;
 
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public  class Map implements Screen {
+public  class Map extends ScreenAdapter {
 	SpriteBatch batch;
-	Texture img, spaceship;
+	Texture img;
+	Texture spaceship;
 	Texture[] levels;
+	Texture star1,star2,star3,star4;
 	static int score = 0;
-	
-	 int spaceshipY = -500;
-	 int posMain = 500;
-	 int posMain2 = 0;
-	 int pos2 = 500;
-	 int pos3 = 500;
-	 int pos4 = 500;
-	 int pos5 = 500;
-	 int pos6 = 500;
-	 int pos7 = 500;
-	 
+	int spaceshipX = -500;	
+	int posMain = 500;
+	int posMain2 = 0;
+	int pos2 = 500;
+	int pos3 = 500;
+	int pos4 = 500;
+	int pos5 = 500;
+	int pos6 = 500;
+	int pos7 = 500;
+	int tempPos=0;
+	 int starsCount = -500;
 	final VirusFighter game;
 
-	 public Map(final VirusFighter game) {
-		 
+	public Map(final VirusFighter game) {
 		 this.game = game;
-		 
 		 batch = new SpriteBatch();
-		 img = new Texture("BG.png");
+		 img = new Texture("NebulaBlue.png");
 		 levels = new Texture[6];
-		 
-		 levels[0] = new Texture("level1.png");
-	   	 levels[1] = new Texture("level2.png");
-		 levels[2] = new Texture("level3.png");
-		 levels[3] = new Texture("level4.png");
-		 levels[4] = new Texture("level5.png");
-		 levels[5] = new Texture("level6.png");
-		 if(CharacterMenu.shipChoice == 1) {
-			 spaceship = new Texture("spaceship1inverted.png");
-		 }
-		 else if(CharacterMenu.shipChoice == 2) {
-			 spaceship = new Texture("spaceship2inverted.png");
-		 }
+		 levels[0] = new Texture("Levels/level1.png");
+		 levels[1] = new Texture("Levels/level2.png");
+		 levels[2] = new Texture("Levels/level3.png");
+		 levels[3] = new Texture("Levels/level4.png");
+		 levels[4] = new Texture("Levels/level5.png");
+		 levels[5] = new Texture("Levels/level6.png");	
+		 star1 = new Texture("StarsSmall_1.png");
+		 star2 = new Texture("Stars-Big_1_1_PC.png");
+
+		 if(CharacterMenu.getShipChoice() == 1) {
+			 spaceship = new Texture("SpaceShips/spaceship1inverted.png");
+				}
+		 else if(CharacterMenu.getShipChoice()== 2) {
+			 spaceship = new Texture("SpaceShips/spaceship2inverted.png");
+				}
 		 else {
-			 spaceship = new Texture("spaceship3inverted.png");
-		 }
+			 spaceship = new Texture("SpaceShips/spaceship3inverted.png");
+				}
 	 }
-	
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		game.batch.begin();
+		game.batch.draw(img, 0, 0,Gdx.graphics.getWidth()*20,Gdx.graphics.getHeight());
+		if(starsCount < 500)
+			starsCount++;
+		else
+			starsCount = -500;
+		game.batch.draw(star1, starsCount, 0,Gdx.graphics.getWidth()*20,Gdx.graphics.getHeight());
+		game.batch.draw(star1, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		game.batch.draw(star1, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+		game.batch.draw(star2, starsCount, 0,Gdx.graphics.getWidth()*20,Gdx.graphics.getHeight());
+		if(LevelsMenu.getTag() == 1 ) {
+			game.batch.draw(levels[0], posMain2, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+			if(posMain2 == -500)
+			{
+				posMain2 = -500;			
+			}
+			else{
+				posMain2-=2;
+			}		
+				game.batch.draw(levels[1], pos2, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(pos2 == 0) {
+				 pos2 = 0;
+				 game.setScreen(new MoveTo(game));
+				}
+			 else
+				 pos2-=2;
+		}
+		else if(LevelsMenu.getTag()== 2) {		 
+				 game.batch.draw(levels[1], tempPos, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+				 if(tempPos == -500) {
+					 tempPos = -500;
+					}
+				 else
+					 tempPos-=2;
+					
+				 game.batch.draw(levels[2], pos3, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+				 if(pos3 == 0) {
+					 pos3 = 0;
+					 game.setScreen(new MoveTo(game));
+
+					}
+				 else
+					 pos3-=2;
+		}
+		else if(LevelsMenu.getTag() == 3) {				
+			 game.batch.draw(levels[2], tempPos, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(tempPos == -500) {
+				 tempPos = -500;
+				}
+			 else
+				 tempPos-=2;
+			 game.batch.draw(levels[3], pos4, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(pos4 == 0) {
+				 pos4 = 0;
+				 game.setScreen(new MoveTo(game));
+
+				}
+			 else
+				 pos4-=2;
+		}
+		else if(LevelsMenu.getTag() == 4) {
+			 game.batch.draw(levels[3], tempPos, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(tempPos == -500) {
+				 tempPos = -500;
+				}
+			 else
+				 tempPos-=2;
+			 game.batch.draw(levels[4], pos5, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(pos5 == 0) {
+				 pos5 = 0;
+				 game.setScreen(new MoveTo(game));
+				}
+			 else
+				 pos5-=2;
+		}
+		else if(LevelsMenu.getTag() == 5) {
+			 game.batch.draw(levels[4], tempPos, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(tempPos == -500) {
+				 tempPos = -500;
+				}
+			 else
+				 tempPos-=2;
+			 game.batch.draw(levels[5], pos6, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(pos6 == 0) {
+				 pos6 = 0;
+				 game.setScreen(new MoveTo(game));
+
+				}
+			 else
+				 pos6-=2;
+		}
+		else if(LevelsMenu.getTag() == 5) {
+			 game.batch.draw(levels[5], tempPos, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(tempPos == -500) {
+				 tempPos = -500;
+				}
+			 else
+				 tempPos-=2;
+			 game.batch.draw(levels[6], pos7, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+			 if(pos7 == 0) {
+				 pos7 = 0;
+				 game.setScreen(new MoveTo(game));
+
+				}
+			 else
+				 pos7-=2;
+		}
+		else if(LevelsMenu.getTag()== 0) {
+			game.batch.draw(levels[0], posMain, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		}
+		if(posMain == 0)
+		{
+			posMain = 0;
+			game.setScreen(new MoveTo(game));
+		}
+		else{
+			posMain-=2;
+		}
+		if(spaceshipX == 0) {
+			spaceshipX = 0;
+		}
+		else
+			spaceshipX+=2;
+		if(LevelsMenu.getTag() != 0) {
+			game.batch.draw(spaceship, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+		}
+		else
+			game.batch.draw(spaceship, spaceshipX, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+		game.batch.end();		
+	}
 	@Override
 	public void dispose () {
 		game.batch.dispose();		
@@ -60,169 +199,6 @@ public  class Map implements Screen {
 		levels[3].dispose();
 		levels[4].dispose();
 		levels[5].dispose();
-	}
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		game.batch.begin();
-		game.batch.draw(img, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		try {
-			if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-				score++;
-			}
-		
-		if(score == 1 ) {
-			game.batch.draw(levels[0], posMain2, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
-			if(posMain2 == -500)
-			{
-				posMain2 = -500;
-				
-			}
-			else{
-				posMain2--;
-			}
-			
-				game.batch.draw(levels[1], pos2, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos2 == 0) {
-				 pos2 = 0;
-				}
-			 else
-				 pos2--;
-		}
-		else if(score== 2) {
-		    game.batch.draw(levels[1], pos2, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		    if(pos2 == -500) {
-			    pos2 = -500;
-			}
-		    else
-			    pos2--;
-			
-		 game.batch.draw(levels[2], pos3, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		 if(pos3 == 0) {
-			 pos3 = 0;
-			}
-		 else
-			 pos3--;
-		
-	 
-		}
-		else if(score == 3) {
-				
-			 game.batch.draw(levels[2], pos3, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos3 == -500) {
-				 pos3 = -500;
-				}
-			 else
-				 pos3--;
-			 game.batch.draw(levels[3], pos4, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos4 == 0) {
-				 pos4 = 0;
-				}
-			 else
-				 pos4--;
-		}
-		else if(score == 4) {
-			 game.batch.draw(levels[3], pos4, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos4 == -500) {
-				 pos4 = -500;
-				}
-			 else
-				 pos4--;
-			 game.batch.draw(levels[4], pos5, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos5 == 0) {
-				 pos5 = 0;
-				}
-			 else
-				 pos5--;
-		}
-		else if(score == 5) {
-			 game.batch.draw(levels[4], pos5, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos5 == -500) {
-				 pos5 = -500;
-				}
-			 else
-				 pos5--;
-			 game.batch.draw(levels[5], pos6, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos6 == 0) {
-				 pos6 = 0;
-				}
-			 else
-				 pos6--;
-		}
-		else if(score == 6) {
-
-			 game.batch.draw(levels[5], pos6, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos6 == -500) {
-				 pos6 = -500;
-				}
-			 else
-				 pos6--;
-			 game.batch.draw(levels[6], pos7, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-			 if(pos7 == 0) {
-				 pos7 = 0;
-				}
-			 else
-				 pos7--;
-		}
-		else if(score== 0) {
-			game.batch.draw(levels[0], posMain, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
-			
-		}
-		if(posMain == 0)
-		{
-			posMain = 0;
-			
-		}
-		else{
-			posMain--;
-		}
-		if(spaceshipY == 0) {
-			spaceshipY = 0;
-		}
-		else
-			spaceshipY++;
-
-		game.batch.draw(spaceship, spaceshipY, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-	
-		
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		game.batch.end();
-		
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-		
 	}
 }
