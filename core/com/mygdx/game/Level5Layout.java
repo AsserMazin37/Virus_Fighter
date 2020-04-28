@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -47,9 +48,12 @@ public class Level5Layout extends ScreenAdapter{
 	boolean drawInstructions ;
 	static boolean enteredLevel5;
 	int countDataBase = 0;
+	BitmapFont font, introText, smallYellow, orangeFont, mediumRed, healthbar, smallRed;
+	String introTitle, IntroText1, IntroText2, IntroText3, IntroText4, IntroText5, IntroText6,
+	IntroText7, IntroText8, IntroText9;
 	Level5Layout(final VirusFighter game){
 		gameOverFont = new BitmapFont (Gdx.files.internal("fonts/myfont.fnt"));
-		smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont11green.fnt"));
+		smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
 		congratulationsText = "CONGRATULATIONS!";
 		gameOvertext="GAME OVER!!!";
         backToCharacter = "C to choose another character";
@@ -98,6 +102,29 @@ public class Level5Layout extends ScreenAdapter{
 		sr = new ShapeRenderer();
 		lives = 3;
 		collidBullets =0;
+		font = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallYellow = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallYellow.setColor(Color.YELLOW);
+		orangeFont = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		orangeFont.setColor(Color.ORANGE);
+		mediumRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		mediumRed.setColor(Color.RED);
+		healthbar = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallRed.setColor(Color.RED);
+		smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallGreen.setColor(Color.GREEN);
+		introTitle = "LEVEL GUIDE";
+		
+		IntroText1 = "-Challenge Yourself.";
+		IntroText2 = "-Kill the mother virus before it kills you.";
+		IntroText3 = "-CONTROLS: ";
+		IntroText4 = "*Press SPACE button to shoot.";
+		IntroText5 = "*Press Left arrow to go left";
+		IntroText6 = "*Press Right arrow to go right";
+		IntroText7 = "-The small viruses can't be killed!!";
+		IntroText8 = "-GOOD LUCK.";
+		IntroText9 = "-Press ENTER to start your fight.";
 	}
 	public void generateRandom( int spaceShipHeight , int collidBullets){
 		int r = rand.nextInt(8);
@@ -200,7 +227,17 @@ public class Level5Layout extends ScreenAdapter{
 		game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
 		if(drawInstructions==true)
 		{
-			 game.batch.draw(instruction, 100, 50, Gdx.graphics.getWidth()/1.5f,Gdx.graphics.getHeight()/1.2f);
+			
+			orangeFont.draw(game.batch, introTitle, 180, 450); 
+			healthbar.draw(game.batch, IntroText1, 2, 400, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText2, 2, 360, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText3, 2, 320, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText4, 2, 280, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText5, 2, 240, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText6, 2, 200, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			smallYellow.draw(game.batch, IntroText7, 2, 160, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			healthbar.draw(game.batch, IntroText8, 2, 120, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			mediumRed.draw(game.batch, IntroText9, 2, 80, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			 if(Gdx.input.isKeyJustPressed(Keys.ENTER))
 			 {
 				 drawInstructions = false;
@@ -245,8 +282,12 @@ public class Level5Layout extends ScreenAdapter{
 	    	}
 	    	else if(collidBullets>=100) 
 			{
+	    		gameOverFont.setColor(Color.GREEN);
 	    		gameOverFont.draw(game.batch, congratulationsText, 230 ,spaceShipLoc.y +300);
-	    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+200); 
+	    		smallGreen.draw(game.batch, "Press:", 160, spaceShipLoc.y+230);
+	    		smallGreen.setColor(Color.MAROON);
+	    		smallGreen.getData().scaleX = 0.5f;
+	    		smallGreen.draw(game.batch, backToCharacter, 170, spaceShipLoc.y+200); 
 	    		smallGreen.draw(game.batch, backToLevel, 170, spaceShipLoc.y+150);
 	    		smallGreen.draw(game.batch, restart, 170, spaceShipLoc.y+100);
 	    		countDataBase++;
@@ -279,8 +320,12 @@ public class Level5Layout extends ScreenAdapter{
 	    	}
 	    	else 
 	    	{
+	    		gameOverFont.setColor(Color.RED);
 	    		gameOverFont.draw(game.batch, gameOvertext,230 ,spaceShipLoc.y +300);
-	    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+200); 
+	    		smallGreen.draw(game.batch, "Press:", 165, spaceShipLoc.y+230);
+	    		smallGreen.setColor(Color.ORANGE);
+	    		smallGreen.getData().scaleX = 0.5f;
+	    		smallGreen.draw(game.batch, backToCharacter, 170, spaceShipLoc.y+200); 
 	    		smallGreen.draw(game.batch, backToLevel, 170, spaceShipLoc.y+150);
 	    		smallGreen.draw(game.batch, restart, 170, spaceShipLoc.y+100);
 	    	}
