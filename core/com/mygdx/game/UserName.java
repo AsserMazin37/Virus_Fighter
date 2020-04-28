@@ -46,16 +46,18 @@ public class UserName extends ScreenAdapter implements ActionListener{
     	Class.forName("org.sqlite.JDBC");
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 
 	         Statement statement = connection.createStatement();
 	         statement.setQueryTimeout(30);  // set timeout to 30 sec.
-	        //statement.executeUpdate("DROP TABLE IF EXISTS dataofUsers");
-	         //statement.executeUpdate("CREATE TABLE dataofUsers (name STRING, score int)");
-            statement.executeUpdate("INSERT INTO dataofUsers values('newtry','4')");  
+	         //statement.executeUpdate("DROP TABLE IF EXISTS dataofUsers");
+	         statement.executeUpdate("CREATE TABLE IF NOT EXISTS dataofUsers  (name STRING, score int)");
+	         //statement.executeUpdate("INSERT INTO dataofUsers values('newtry','4')");  
 	         //statement.executeUpdate("UPDATE person SET name='Peter' WHERE id='1'");
 	         //statement.executeUpdate("DELETE FROM person WHERE id='1'");
+	          
 	           ResultSet resultSet = statement.executeQuery("SELECT * from dataofUsers");
+	           
 	           while(resultSet.next())
 	           {
 	 	              System.out.println(resultSet.getString("name"));
