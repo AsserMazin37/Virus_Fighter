@@ -273,7 +273,7 @@ import gameData.databaseClass;
 		    			removeCheck =  false;
 		    			break;
 		    		}
-		    			    	
+		    	}		    	
 		    	//the following code is related to the movement of the spaceship on the x axis
 				if(Gdx.input.isKeyPressed(Keys.RIGHT) ) {
 		
@@ -433,3 +433,4 @@ import gameData.databaseClass;
 
 		}
 	}
+	
