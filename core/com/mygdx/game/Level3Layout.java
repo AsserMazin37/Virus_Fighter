@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -160,12 +161,17 @@ public class Level3Layout extends ScreenAdapter{
 			secondVirusCircle = new Circle();
 			
 			font = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
-			smallYellow = new BitmapFont(Gdx.files.internal("fonts/myfont9yellowsmall.fnt"));
-			orangeFont = new BitmapFont(Gdx.files.internal("fonts/myfont7orangeMedium.fnt"));
-			mediumRed = new BitmapFont(Gdx.files.internal("fonts/myfont5red.fnt"));
+			smallYellow = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+			smallYellow.setColor(Color.YELLOW);
+			orangeFont = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+			orangeFont.setColor(Color.ORANGE);
+			mediumRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+			mediumRed.setColor(Color.RED);
 			healthbar = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
-			smallRed = new BitmapFont(Gdx.files.internal("fonts/myfont10redsmall.fnt"));
-			smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont11green.fnt"));
+			smallRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+			smallRed.setColor(Color.RED);
+			smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+			smallGreen.setColor(Color.GREEN);
 			
 			introTitle = "LEVEL GUIDE";
 			
@@ -422,12 +428,12 @@ public class Level3Layout extends ScreenAdapter{
 		    		smallYellow.draw(game.batch, "You finished this level", 170, timerLoc.y-100);
 		    		smallYellow.draw(game.batch, "in " + totalTime + " seconds", 230, timerLoc.y-120);
 		    		
+		    		smallGreen.getData().scaleX = 0.7f;
 		    		smallGreen.draw(game.batch, backToCharacter,163, timerLoc.y-150); 
 		    		smallGreen.draw(game.batch, backToLevel,170, timerLoc.y-190);
 		    		smallGreen.draw(game.batch, restart,170, timerLoc.y-220);
-		    		
+		    		smallRed.getData().scaleX = 0.7f;
 		    		smallRed.draw(game.batch, "Alt Left to go to next Level", 170, timerLoc.y-260);
-		    		
 		    		countDataBase++;
 					VirusFighter.played = 3;
 	            	if(countDataBase == 1) {
