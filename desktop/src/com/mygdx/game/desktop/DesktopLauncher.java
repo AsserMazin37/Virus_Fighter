@@ -9,5 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new VirusFighter(), config);
+		config.addIcon("MainUi/vfImage.png", FileType.Internal);
+		config.resizable = false;
 	}
 }
