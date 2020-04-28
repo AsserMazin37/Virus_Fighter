@@ -80,7 +80,7 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	       font.draw(game.batch,"Speed: 100 km/h",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.8f);
 	       font.draw(game.batch,"Health: 3/10",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.95f);
 	       font.draw(game.batch,"Bullets: Magnum",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.15f);
-	       font.draw(game.batch,"Unspecified",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
+	       font.draw(game.batch,"Unlocked",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 	       game.batch.draw(forward, 550, 180,forward.getWidth()/3.5f,forward.getHeight()/3.5f);   
 	       r2.set(550, 180, Gdx.graphics.getWidth()/3.5f, Gdx.graphics.getHeight()/3.5f); 
 	       if(r2.contains(mouseX,mouseY)) {
@@ -104,7 +104,7 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	  	       font.draw(game.batch,"Speed: 350 km/h",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.8f);
 	  	       font.draw(game.batch,"Health: 6/10",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.95f);
 	  	       font.draw(game.batch,"Bullets: ACP",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.15f);
-	  	       font.draw(game.batch,"Unspecified",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
+	  	       font.draw(game.batch,"Unlocked",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 		       game.batch.draw(forward, 550, 180,forward.getWidth()/3.5f,forward.getHeight()/3.5f);   
 		       game.batch.draw(backward, 20, 180,backward.getWidth()/3.5f,backward.getHeight()/3.5f);   
 		       r2.set(550, 180, Gdx.graphics.getWidth()/3.5f, Gdx.graphics.getHeight()/3.5f); 
@@ -131,7 +131,6 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	    			 }
 	    		 else
 		  	    	 game.batch.draw(spaceship3, -150, -30 ,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-	  	    	   
 	  	        }     
 	  	       else
 	  	    	   game.batch.draw(spaceship3, -150, -30 ,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -139,7 +138,7 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	  	       font.draw(game.batch,"Speed: 500 km/h",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.8f);
 	  	       font.draw(game.batch,"Health: 8/10",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.95f);
 	  	       font.draw(game.batch,"Bullets: Colt",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.15f);
-	  	       font.draw(game.batch,"Pass level 4",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
+	  	       font.draw(game.batch,"Pass level 4 to unlock!",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 		       game.batch.draw(backward, 20, 180,backward.getWidth()/3.5f,backward.getHeight()/3.5f);   
 		       r3.set(3, 180, Gdx.graphics.getWidth()/8f, Gdx.graphics.getHeight()/3.5f);   
 		       if(r3.contains(mouseX,mouseY)) {
