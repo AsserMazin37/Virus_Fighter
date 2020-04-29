@@ -2,9 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,10 +18,9 @@ public class UserName extends ScreenAdapter implements ActionListener{
 	
 	JFrame frame;
 	
-	JLabel userName, score, level;
+	JLabel userName, level;
 	
 	JTextField userField, scoreField, levelField;
-	
 	
 	JButton signUp, login, cont;
 	
@@ -69,8 +65,6 @@ public class UserName extends ScreenAdapter implements ActionListener{
 	        	   }
 	        	   else
 	        		   continue;
-	        	   
-	              
 	           }
 	           if(inorup == true) {
 	        	   if(found == true) {
@@ -99,7 +93,6 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		           }
 		           else if(found == false) {
 		        		   //MainMenu.check = true;
-		        	   
 		        	   		statement.executeUpdate("INSERT INTO dataofUsers values('"+user+"' , '1')");  
 			        	   JOptionPane.showMessageDialog(frame, "Successfully registered!","Info",JOptionPane.INFORMATION_MESSAGE);
 			        	   send = user;
@@ -107,7 +100,6 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		           }
 	           }
 	           statement.close();
-
 	          }
 
 	     catch(SQLException e){  System.err.println(e.getMessage()); }       
@@ -125,9 +117,9 @@ public class UserName extends ScreenAdapter implements ActionListener{
     public UserName(final VirusFighter game) {
     	
     	this.game = game;
-    	frame = new JFrame("Login");
+    	frame = new JFrame("SignUp/Login");
 		frame.setLayout(new FlowLayout());
-		frame.setSize(250, 200);
+		frame.setSize(300, 200);
 		frame.setLocationRelativeTo(null);
 		
 		userName = new JLabel("Username:");
@@ -144,18 +136,14 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		panel.add(login);
 		frame.add(panel);
 		
-		score = new JLabel("Level:");
-		frame.add(score);
-		score.setVisible(false);
+		level = new JLabel("Last Level Reached");
+		frame.add(level);
+		level.setVisible(false);
 		
 		scoreField = new JTextField(13);
 		scoreField.setEditable(false);
 		frame.add(scoreField);
 		scoreField.setVisible(false);
-		
-		level = new JLabel("Last Level");
-		frame.add(level);
-		level.setVisible(false);
 		
 		levelField = new JTextField(10);
 		levelField.setEditable(false);
@@ -171,7 +159,6 @@ public class UserName extends ScreenAdapter implements ActionListener{
 				try {
 					database(userField.getText());
 				} catch (ClassNotFoundException x) {
-					// TODO Auto-generated catch block
 					x.printStackTrace();
 				}
 			}
@@ -185,12 +172,11 @@ public class UserName extends ScreenAdapter implements ActionListener{
 				try {
 					database(userField.getText());
 				} catch (ClassNotFoundException x) {
-					// TODO Auto-generated catch block
 					x.printStackTrace();
 				}
 				if(check2 == true) {
 					userField.setEditable(false);
-					score.setVisible(true);
+					level.setVisible(true);
 					scoreField.setVisible(true);
 					scoreField.setText(Integer.toString(userScore));
 					panel.setVisible(false);
@@ -223,23 +209,18 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		});
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
     
 	@Override
 	public void render(float delta) {
-		
 		if(check == true) {
 			frame.dispose();
 			game.setScreen(new CharactersMenu(game));
-		}
-		
-		
+		}		
 	}
 }
