@@ -41,7 +41,9 @@ public class LevelLayout5 extends ScreenAdapter{
 	ArrayList<Level2Explosion> explosions;
 	ArrayList<Circle> circleVirus = new ArrayList<Circle>(); //for tracking small viruses
 	ArrayList<Circle> circleBullet = new ArrayList<Circle>(); //for tracking bullets
-	
+	ArrayList<SpaceShipExplosion>virusExplosion = new ArrayList<SpaceShipExplosion>();
+	int count = 0;
+	Music boom;
 	Circle spaceShipCircle = new Circle(); 
 	Circle virusBossCircle = new Circle();
 	
@@ -76,7 +78,7 @@ public class LevelLayout5 extends ScreenAdapter{
 		
 		l = new Level5();
 		v = new Virus();
-		
+		boom = Gdx.audio.newMusic(Gdx.files.internal("music/Canoon.mp3"));
 		enteredLevel5 = true;
 		levelMusic = Gdx.audio.newMusic(Gdx.files.internal(l.getMusic()));
 		if(MainMenu.disable == false) {
@@ -86,7 +88,7 @@ public class LevelLayout5 extends ScreenAdapter{
 		background = new Texture(l.getBackground());
 		spaceShip = new Texture(l.getCharacter());
 		virus = new Texture(v.getVirus5());
-		bullet = new Texture(l.getCharacterBullet());
+		bullet = new Texture(Level5.getBullet());
 		virusBulletTexture = new Texture(v.getVirusBullets5());
 		heart1 = new Texture("Levels/healthHeart.png");
 		heart2 = new Texture("Levels/healthHeart.png");
@@ -125,12 +127,12 @@ public class LevelLayout5 extends ScreenAdapter{
 		sr = new ShapeRenderer();
 		
 		font = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
-		smallYellow = new BitmapFont(Gdx.files.internal("fonts/myfont9yellowsmall.fnt"));
-		orangeFont = new BitmapFont(Gdx.files.internal("fonts/myfont7orangeMedium.fnt"));
-		mediumRed = new BitmapFont(Gdx.files.internal("fonts/myfont5red.fnt"));
+		smallYellow = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		orangeFont = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		mediumRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
 		healthbar = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
-		smallRed = new BitmapFont(Gdx.files.internal("fonts/myfont10redsmall.fnt"));
-		smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont11green.fnt"));
+		smallRed = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
+		smallGreen = new BitmapFont(Gdx.files.internal("fonts/myfont.fnt"));
 		
 		introTitle = "LEVEL GUIDE";
 		IntroText1 = "-Challenge Yourself.";
@@ -260,6 +262,7 @@ public class LevelLayout5 extends ScreenAdapter{
 	    case RUN:{
 		game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
 		if(drawInstructions==true){
+			orangeFont.setColor(Color.ORANGE);
 			orangeFont.draw(game.batch, introTitle, 180, 450); 
 			healthbar.draw(game.batch, IntroText1, 2, 400, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			healthbar.draw(game.batch, IntroText2, 2, 360, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
@@ -267,8 +270,10 @@ public class LevelLayout5 extends ScreenAdapter{
 			healthbar.draw(game.batch, IntroText4, 2, 280, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			healthbar.draw(game.batch, IntroText5, 2, 240, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			healthbar.draw(game.batch, IntroText6, 2, 200, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			smallYellow.setColor(Color.YELLOW);
 			smallYellow.draw(game.batch, IntroText7, 2, 160, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			healthbar.draw(game.batch, IntroText8, 2, 120, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
+			mediumRed.setColor(Color.RED);
 			mediumRed.draw(game.batch, IntroText9, 2, 80, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()-200, true);
 			 if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
 				 drawInstructions = false;
@@ -312,14 +317,33 @@ public class LevelLayout5 extends ScreenAdapter{
 	    	}
 	    	else if(collidBullets>=100) 
 			{
-	    		gameOverFont.setColor(Color.GREEN);
-	    		gameOverFont.draw(game.batch, congratulationsText, 230 ,spaceShipLoc.y +300);
+	    		font.setColor(Color.BLUE);
+	    		/*gameOverFont.draw(game.batch, congratulationsText, 230 ,spaceShipLoc.y +300);
 	    		smallGreen.draw(game.batch, "Press:", 160, spaceShipLoc.y+230);
 	    		smallGreen.setColor(Color.MAROON);
 	    		smallGreen.getData().scaleX = 0.5f;
 	    		smallGreen.draw(game.batch, backToCharacter, 170, spaceShipLoc.y+200); 
 	    		smallGreen.draw(game.batch, backToLevel, 170, spaceShipLoc.y+150);
-	    		smallGreen.draw(game.batch, restart, 170, spaceShipLoc.y+100);
+	    		smallGreen.draw(game.batch, restart, 170, spaceShipLoc.y+100);*/
+	    		count++;
+				if(count == 1) {
+					virusExplosion.add(new SpaceShipExplosion(virusLoc.x+170, virusLoc.y+100));
+					boom.play();
+				}
+	    		font.draw(game.batch, congratulationsText, 210, spaceShipLoc.y+300);
+	    		smallGreen.setColor(Color.WHITE);
+	    		smallGreen.getData().scaleX = 0.6f;
+	    		smallGreen.draw(game.batch, "Galaxy is now free off viruses!", 162, spaceShipLoc.y+200); 
+
+	    		smallGreen.setColor(Color.RED);
+	    		smallGreen.getData().scaleX = 0.5f;
+	    		
+	    		smallGreen.draw(game.batch, "Press:", 162, spaceShipLoc.y+170); 
+	    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+150); 
+	    		smallGreen.draw(game.batch, backToLevel, 163, spaceShipLoc.y+130);
+	    		smallGreen.draw(game.batch, restart, 163, spaceShipLoc.y+110);
+	    		smallGreen.getData().scaleX = 1;
+	    		
 	    		countDataBase++;
 	    		VirusFighter.played = 5;
             	/*if(countDataBase == 1) {
@@ -350,12 +374,23 @@ public class LevelLayout5 extends ScreenAdapter{
 	    	}
 	    	else 
 	    	{
+	    		smallRed.setColor(Color.RED);
 	    		smallRed.draw(game.batch, gameOverText, 250, spaceShipLoc.y+300);
+	    		smallGreen.setColor(Color.WHITE);
+	    		smallGreen.getData().scaleX = 0.6f;
+	    		smallGreen.draw(game.batch, "Heart is still infected!", 162, spaceShipLoc.y+200); 
+	    		smallGreen.setColor(Color.GREEN);
 	    		smallGreen.getData().scaleX = 0.7f;
+	    		smallGreen.draw(game.batch, "Press:", 162, spaceShipLoc.y+170); 
 	    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+150); 
-	    		smallGreen.draw(game.batch, backToLevel, 163, spaceShipLoc.y+100);
-	    		smallGreen.draw(game.batch, restart, 163, spaceShipLoc.y+50);
+	    		smallGreen.draw(game.batch, backToLevel, 163, spaceShipLoc.y+130);
+	    		smallGreen.draw(game.batch, restart, 163, spaceShipLoc.y+110);
 	    		smallGreen.getData().scaleX = 1;
+	    		count++;
+				if(count == 1) {
+					virusExplosion.add(new SpaceShipExplosion(spaceShipLoc.x, spaceShipLoc.y));
+					boom.play();
+				}
 	    	}
 	    	try {
 	    		int counter = 0;
@@ -459,6 +494,16 @@ public class LevelLayout5 extends ScreenAdapter{
     default:
         break;
     }
+		for(SpaceShipExplosion firework: virusExplosion) {
+			firework.render(game.batch);
+		}
+		ArrayList<SpaceShipExplosion>fireworkRemove = new ArrayList<SpaceShipExplosion>();
+		for(SpaceShipExplosion firework : virusExplosion) {
+			firework.update(delta);
+			if(firework.remove)
+				fireworkRemove.add(firework);
+		}
+		virusExplosion.removeAll(fireworkRemove);
 		game.batch.end();
 	}
 
