@@ -97,6 +97,7 @@ public class MainMenu extends ScreenAdapter {
 				pause = false;
 				status = "MainUi/Active_Music_BTN.png";
 				musicButton = new Texture(status);		
+				disable = false;
 			}
 
 			else if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)&& pause == false) {
@@ -138,7 +139,6 @@ public class MainMenu extends ScreenAdapter {
 			game.batch.draw(startButton, 235, 200, Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/8);
 			if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 				game.setScreen(new UserName(game));				
-
 			}
 		}
 		else
