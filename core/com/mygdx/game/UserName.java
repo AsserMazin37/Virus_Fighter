@@ -37,6 +37,7 @@ public class UserName extends ScreenAdapter implements ActionListener{
 	boolean inorup = false;
 	static int userScore;
 	static String send;
+	boolean close = false;
 	
 	 private void database(String user) throws ClassNotFoundException {
     	Class.forName("org.sqlite.JDBC");
@@ -199,12 +200,7 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        if (JOptionPane.showConfirmDialog(frame, 
-		            "Are you sure you want to close this window?", "Close Window?", 
-		            JOptionPane.YES_NO_OPTION,
-		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-		        	Gdx.app.exit();
-		        }
+				close = true;
 		    }
 		});
 
@@ -221,6 +217,10 @@ public class UserName extends ScreenAdapter implements ActionListener{
 		if(check == true) {
 			frame.dispose();
 			game.setScreen(new CharactersMenu(game));
-		}		
+		}	
+		if(close == true) {
+			game.setScreen(new MainMenu(game));
+		}
+		
 	}
 }
