@@ -156,7 +156,7 @@ public class LevelLayout2 extends ScreenAdapter{
 		blank = new Texture("Levels/blank.png");
 		asteroid = new Texture(Gdx.files.internal(v.getAsteroid()));
 		virus = new Texture(Gdx.files.internal(v.getVirus2()));
-		bullet = new Texture(l.getCharacterBullet());
+		bullet = new Texture(Level2.getBullet());
 		bulletSpeed = l.getCharacterBulletSpeed();
 		random = new Random();
 		virus_timer = random.nextFloat()*(max_virus_time-min_virus_time)+min_virus_time;
