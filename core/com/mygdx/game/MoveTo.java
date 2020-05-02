@@ -45,6 +45,9 @@ public class MoveTo extends ScreenAdapter{
 		games.batch.draw(Table, 0, 150, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()/10);
 		games.batch.draw(name, -20, 100, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		bmf.draw(games.batch,"  HOLD ON, THE FIGHT IS ABOUT TO BEGIN",Gdx.graphics.getWidth()/10f,Gdx.graphics.getHeight()/1.8f);
+		bmf.getData().scaleX = 0.7f;
+		bmf.draw(games.batch,"Press (p) to pause your game...Read instructions before game",Gdx.graphics.getWidth()/15f,Gdx.graphics.getHeight()/5f);
+		bmf.getData().scaleX = 1;
 		timer++;
 		if(timer >= 200) {
 			games.batch.draw(loadingBar1, 5, 154, loadingBar1.getWidth(), loadingBar1.getHeight());
@@ -59,23 +62,23 @@ public class MoveTo extends ScreenAdapter{
 			
 			if(LevelsMenu.tag==0)
 			{
-				games.setScreen(new Level1Layout(games));
+				games.setScreen(new LevelLayout1(games));
 			}
 			if(LevelsMenu.tag==1)
 			{
-				games.setScreen(new Level2Layout(games));
+				games.setScreen(new LevelLayout2(games));
 			}
 			else if(LevelsMenu.tag==2)
 			{
-				games.setScreen(new Level3Layout(games));
+				games.setScreen(new LevelLayout3(games));
 			}
 		    else if(LevelsMenu.tag==3)
 			{
-			 games.setScreen(new Level4Layout(games));
+			 games.setScreen(new LevelLayout4(games));
 			}
 			else if(LevelsMenu.tag==4)
 			{
-				games.setScreen(new Level5Layout(games));
+				games.setScreen(new LevelLayout5(games));
 			}
 			/*else if(LevelsMenu.getTag()==5)
 			{
