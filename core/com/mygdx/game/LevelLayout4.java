@@ -20,6 +20,7 @@ import gameData.*;
 			SpriteBatch batch;
 			
 			int collision = 0;
+			boolean remove = false;
 			
 			boolean win = false;
 			boolean freeze = false;
@@ -129,7 +130,7 @@ import gameData.*;
 
 				spaceShip = new Texture(l.getCharacter());
 				virus = new Texture(v.getVirus4());
-				bullet = new Texture(l.getCharacterBullet());
+				bullet = new Texture(Level4.getBullet());
 				bulletSpeed = l.getCharacterBulletSpeed();
 				font =new BitmapFont (Gdx.files.internal("fonts/myfont.fnt"));
 				spaceShipLoc.x = 130;
@@ -168,6 +169,7 @@ import gameData.*;
 		    	}
 		    	if(Gdx.input.isKeyJustPressed(Keys.P)) {
 		    		pause();
+		    		remove = true;
 		    	}
 		    	if(Gdx.input.isKeyJustPressed(Keys.A)) {
 		    		resume();
@@ -190,7 +192,7 @@ import gameData.*;
 			    	font.setColor(Color.WHITE);
 			    	font.getData().scaleY = 0.99f;
 			        font.getData().scaleX = 0.99f;
-					font.draw(game.batch, "Stomach has lots of\n viruses, trying to escape from you\n so to win you should get a higher score which is\n not less than 35 hits before they escape" , 50, 350);
+					font.draw(game.batch, "Stomach has 12\n viruses, trying to escape from you\n so to win you should get a score which is\nto destroy them before they escape" , 50, 350);
 					font.draw(game.batch, "Your controls:\n right and left buttons for moving on\n the sides which is your only movement", 50, 270);
 					font.draw(game.batch, " Press space to fire", 50, 200);
 					font.draw(game.batch, "Press fire to start game", 180, 50);
@@ -219,23 +221,30 @@ import gameData.*;
 			    	if(hit5==true) {
 			    		game.batch.draw(virus, virusx4,virusy4,  vw4, vh4);
 			    	}
-			    	int counter = 0;
-			    	bulletCircle.clear();
-			    	while(counter < bulletManager.size()) {
-			    		Bullet1 currentBullet = bulletManager.get(counter);
-			    		currentBullet.update();
-			    		if(currentBullet.bulletLocation.x > -110 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() && currentBullet.bulletLocation.y > -40 && currentBullet.bulletLocation.y < Gdx.graphics.getHeight()) {
-			    			game.batch.draw(bullet, currentBullet.bulletLocation.x, currentBullet.bulletLocation.y, bullet.getWidth() / 5, bullet.getHeight() / 5);
-			    			bulletCircle.add(new Circle(currentBullet.bulletLocation.x+113,currentBullet.bulletLocation.y+75,10));
-			    		}
-			    		else {
-			    			bulletManager.remove(counter);
-			    			if(bulletManager.size() > 0) {
-			        			counter--;
-			    			}
-			    		}
-			    		counter++;
-			    	}
+			    		int counter = 0;
+				    	
+				    	bulletCircle.clear();
+				    	while(counter < bulletManager.size()) {
+				    		Bullet1 currentBullet = bulletManager.get(counter);
+				    		currentBullet.update();
+				    		if(remove == true) {
+				    			currentBullet.bulletLocation.y = 1000;
+				    		}
+				    			if(currentBullet.bulletLocation.x > -110 && currentBullet.bulletLocation.x < Gdx.graphics.getWidth() && currentBullet.bulletLocation.y > -40 && currentBullet.bulletLocation.y < Gdx.graphics.getHeight()) {
+					    			game.batch.draw(bullet, currentBullet.bulletLocation.x, currentBullet.bulletLocation.y, bullet.getWidth() / 5, bullet.getHeight() / 5);
+					    			bulletCircle.add(new Circle(currentBullet.bulletLocation.x+113,currentBullet.bulletLocation.y+75,10));
+					    		}
+					    		else {
+					    			bulletManager.remove(counter);
+					    			if(bulletManager.size() > 0) {
+					        			counter--;
+					    			}
+					    		}
+				    		
+				    		counter++;
+				    	}
+			    	
+			    	
 			    	
 			    	if(c==true)
 			    	{
@@ -772,16 +781,16 @@ import gameData.*;
 			    break;
 			    }
 			    case PAUSE:{
-			    	game.batch.draw(window, 220, 150, window.getWidth()/4,window.getHeight()/4);
+			    	game.batch.draw(window, 160, 140, window.getWidth()/3,window.getHeight()/4);
 			    	
-			    	game.batch.draw(pause, 290, 390, pause.getWidth()/3,pause.getHeight()/5);
+			    	game.batch.draw(pause, 240, 380, pause.getWidth()/3,pause.getHeight()/5);
 			    	
 			    	font.getData().scaleX = 0.6f;
-			    	font.draw(game.batch, press, 235, 360);
-			    	font.draw(game.batch, returnToGamePlay, 235, 320);
-			    	font.draw(game.batch, backToCharacter, 235, 280); 
-			    	font.draw(game.batch, backToLevel, 235, 240);
-			    	font.draw(game.batch, restart, 235, 200);
+			    	font.draw(game.batch, press, 175, 350);
+			    	font.draw(game.batch, returnToGamePlay, 175, 310);
+			    	font.draw(game.batch, backToCharacter, 175, 270); 
+			    	font.draw(game.batch, backToLevel, 175, 230);
+			    	font.draw(game.batch, restart, 175, 190);
 			    	font.getData().scaleX = 1;
 			        break;
 			    }
@@ -794,11 +803,13 @@ import gameData.*;
 			@Override
 			public void pause(){
 			    this.state = State.PAUSE;
+			    remove = true;
 			}
 
 			@Override
 			public void resume(){
 			    this.state = State.RUN;
+			    remove = false;
 			}
 			
 			@Override
