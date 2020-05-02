@@ -122,6 +122,7 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	    	}
 	    	else {
    			 if(UserName.unlockSpaceShip == true) {
+  	  	       font.draw(game.batch,"Unlocked",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 	    		 if(r1.contains(mouseX, mouseY)){
 	    				 game.batch.draw(spaceship3, -40, 50 ,Gdx.graphics.getWidth()/1.5f, Gdx.graphics.getHeight()/1.6f);
 	  	  	    	   if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
@@ -132,13 +133,14 @@ public class CharactersMenu extends ScreenAdapter implements ActionListener{
 	    		 else
 		  	    	 game.batch.draw(spaceship3, -150, -30 ,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	  	        }     
-	  	       else
+	  	       else {
+		  	       font.draw(game.batch,"Pass level 4 to unlock!",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 	  	    	   game.batch.draw(spaceship3, -150, -30 ,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+	  	       }
 	  	       font.draw(game.batch,text3,Gdx.graphics.getWidth()/1.99f,Gdx.graphics.getHeight()/1.6f);
 	  	       font.draw(game.batch,"Speed: 500 km/h",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.8f);
 	  	       font.draw(game.batch,"Health: 8/10",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/1.95f);
 	  	       font.draw(game.batch,"Bullets: Colt",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.15f);
-	  	       font.draw(game.batch,"Pass level 4 to unlock!",Gdx.graphics.getWidth()/2.3f,Gdx.graphics.getHeight()/2.4f);
 		       game.batch.draw(backward, 20, 180,backward.getWidth()/3.5f,backward.getHeight()/3.5f);   
 		       r3.set(3, 180, Gdx.graphics.getWidth()/8f, Gdx.graphics.getHeight()/3.5f);   
 		       if(r3.contains(mouseX,mouseY)) {
