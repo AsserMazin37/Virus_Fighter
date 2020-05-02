@@ -14,7 +14,6 @@ public class Level3 extends Character{
 		public Level3(){
 			setBackground();
 			setCharacter();
-			setCharacterBullet();
 			setCharacterBulletSpeed();
 			setMusic();
 		}
@@ -38,13 +37,6 @@ public class Level3 extends Character{
 		}
 		
 		
-		
-		
-		@Override
-		public void setCharacterBullet() {
-			this.bullet = "bullets/bullet2.png";
-		}
-		
 		@Override
 		public void setCharacterBulletSpeed() {
 			this.bulletSpeed = 20;
@@ -60,13 +52,6 @@ public class Level3 extends Character{
 			return this.character;
 		}
 	
-	
-		
-	
-		@Override
-		public String getCharacterBullet() {
-			return this.bullet;
-		}
 	
 		@Override
 		public int getCharacterBulletSpeed() {
