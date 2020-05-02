@@ -69,7 +69,7 @@ import gameData.*;
 			background = new Texture(l.getBackground());
 			spaceShip = new Texture(l.getCharacter());
 			virus = new Texture(v.getVirus1());	
-			bullet = new Texture(l.getCharacterBullet());	
+			bullet = new Texture(Level1.getBullet());	
 			bulletSpeed = l.getCharacterBulletSpeed();		
 			health = new Texture("Levels/Cristal_Icon.png");
 			clock = new Texture("Levels/Armor_Bar_Table.png");
