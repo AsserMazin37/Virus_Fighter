@@ -101,7 +101,7 @@ public class LevelLayout3 extends ScreenAdapter{
 		secondVirus = new Texture(v.getSecondVirus());
 		background = new Texture(l.getBackground());
 		spaceShip = new Texture(l.getCharacter());
-		bullet = new Texture(l.getCharacterBullet());
+		bullet = new Texture(Level3.getBullet());
 		collision = new Texture("Levels/collision.png");
 		firstHealthBarFull = new Texture("Levels/fullHealthBar.png");
 		secondHealthBarFull = new Texture("Levels/fullHealthBarInverted.png");
@@ -471,9 +471,10 @@ public class LevelLayout3 extends ScreenAdapter{
 		    		smallRed.draw(game.batch, gameOverText, 250, timerLoc.y-40);
 		    		
 		    		smallGreen.getData().scaleX = 0.7f;
+		    		smallGreen.draw(game.batch, "Press:", 163, timerLoc.y-120); 
 		    		smallGreen.draw(game.batch, backToCharacter, 163, timerLoc.y-150); 
-		    		smallGreen.draw(game.batch, backToLevel, 163, timerLoc.y-190);
-		    		smallGreen.draw(game.batch, restart, 163, timerLoc.y-220);
+		    		smallGreen.draw(game.batch, backToLevel, 163, timerLoc.y-180);
+		    		smallGreen.draw(game.batch, restart, 163, timerLoc.y-210);
 		    		smallGreen.getData().scaleX = 1;
 		    	}
 		    	
