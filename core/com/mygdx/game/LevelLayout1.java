@@ -129,8 +129,8 @@ public class LevelLayout1 extends ScreenAdapter {
 		float y = camera.position.y;
 		float x = camera.position.x;
 		float height = rand.nextFloat() * x;
-		virusYs.add((int) height + 80);
-		virusXs.add((int) y + 300);
+		virusYs.add((int) height + 110);
+		virusXs.add((int) y + 110);
 	}
 
 	public void update() {
@@ -184,10 +184,11 @@ public class LevelLayout1 extends ScreenAdapter {
 		game.batch.begin();
 		update();
 
+		game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 20);
+
 		switch (state) {
 		case RUN: {
 
-			game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 20);
 			game.batch.draw(star1, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 10);
 			game.batch.draw(star2, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() * 10);
 			if (instructions == false) {
@@ -215,19 +216,53 @@ public class LevelLayout1 extends ScreenAdapter {
 				}
 
 				if (dead == false) {
-					if (virusCount < 20) {
-						virusCount++;
-					} else {
-						virusCount = 0;
-						makeVirus();
+					if(timer >= 6000 && timer <= 7000) {
+						if (virusCount < 10) {
+							virusCount++;
+						} else {
+							virusCount = 0;
+							makeVirus();
+						}
+						// for creating a circle around every virus goes down from the top
+						virusCircle.clear();
+						for (int i = 0; i < virusYs.size(); i++) {
+							game.batch.draw(virus, virusYs.get(i), virusXs.get(i), 80, 80);
+							virusXs.set(i, virusXs.get(i) - 2);
+							virusCircle.add(new Circle(virusYs.get(i), virusXs.get(i), 30));
+						}
 					}
-					// for creating a circle around every virus goes down from the top
-					virusCircle.clear();
-					for (int i = 0; i < virusYs.size(); i++) {
-						game.batch.draw(virus, virusYs.get(i), virusXs.get(i), 80, 80);
-						virusXs.set(i, virusXs.get(i) - 2);
-						virusCircle.add(new Circle(virusYs.get(i), virusXs.get(i), 30));
+					else if(timer >= 7000) {
+						if (virusCount < 10) {
+							virusCount++;
+						} else {
+							virusCount = 0;
+							makeVirus();
+						}
+						// for creating a circle around every virus goes down from the top
+						virusCircle.clear();
+						for (int i = 0; i < virusYs.size(); i++) {
+							game.batch.draw(virus, virusYs.get(i), virusXs.get(i), 80, 80);
+							virusXs.set(i, virusXs.get(i) - 3);
+							virusCircle.add(new Circle(virusYs.get(i), virusXs.get(i), 30));
+						}
 					}
+					else {
+						if (virusCount < 15) {
+							virusCount++;
+						} else {
+							virusCount = 0;
+							makeVirus();
+						}
+						// for creating a circle around every virus goes down from the top
+						virusCircle.clear();
+						for (int i = 0; i < virusYs.size(); i++) {
+							game.batch.draw(virus, virusYs.get(i), virusXs.get(i), 80, 80);
+							virusXs.set(i, virusXs.get(i) - 2);
+							virusCircle.add(new Circle(virusYs.get(i), virusXs.get(i), 30));
+						}
+					}
+						
+					
 
 				}
 
@@ -351,7 +386,7 @@ public class LevelLayout1 extends ScreenAdapter {
 						font.getData().scaleX = 0.7f;
 						font.draw(game.batch, "00:" + timer / 100, 407, bmfY + 15);
 					} else if (timer >= 5000 && timer < 6000) {
-						font.setColor(Color.ORANGE);
+						font.setColor(Color.GREEN);
 						font.getData().scaleY = 0.7f;
 						font.getData().scaleX = 0.7f;
 						font.draw(game.batch, "00:" + timer / 100, 407, bmfY + 15);
@@ -359,14 +394,14 @@ public class LevelLayout1 extends ScreenAdapter {
 					else if (timer >= 6000) {
 						if (timer >= 6000 && timer < 7000) {
 							
-							font.setColor(Color.ORANGE);
+							font.setColor(Color.GREEN);
 							font.getData().scaleY = 0.7f;
 							font.getData().scaleX = 0.7f;
 							int timer2 = timer - 6000;
 							font.draw(game.batch, "01:0" + timer2 / 100, 407, bmfY + 15);
 						}
 						else if(timer >= 7000 && timer < 7500) {
-							font.setColor(Color.ORANGE);
+							font.setColor(Color.GREEN);
 							font.getData().scaleY = 0.7f;
 							font.getData().scaleX = 0.7f;
 							int timer2 = timer - 6000;
@@ -400,9 +435,17 @@ public class LevelLayout1 extends ScreenAdapter {
 						font2.draw(game.batch, "Game Over!", 250, textY);
 						font3.draw(game.batch, "score: " + score, 280, textY1);
 						font4.draw(game.batch, "Reamining lives: " + lives, 250, textY2);
-						font4.draw(game.batch, "Press c to choose character!", 240, textY2 - 90);
-						font4.draw(game.batch, "Press enter to choose level!", 240, textY2 - 110);
+						font4.draw(game.batch, "Press c to choose character!", 220, textY2 - 70);
+						font4.draw(game.batch, "Press enter to choose level!", 220, textY2 - 90);
+						font4.draw(game.batch, "Press R to replay!", 220, textY2 - 110);
 
+						if (Gdx.input.isKeyJustPressed(Keys.R)) {
+							camera.setToOrtho(false);
+							game.batch.setProjectionMatrix(camera.combined);
+							music.stop();
+							enteredLevel1 = false;
+							game.setScreen(new Map(game));
+						}
 						if (Gdx.input.isKeyPressed(Keys.ENTER)) {
 							camera.setToOrtho(false);
 							music.stop();
@@ -431,8 +474,10 @@ public class LevelLayout1 extends ScreenAdapter {
 						font2.draw(game.batch, "Well done!", 250, textY);
 						font3.draw(game.batch, "score: " + score, 280, textY1);
 						font4.draw(game.batch, "Reamining lives: " + lives, 250, textY2);
-						font4.draw(game.batch, "Press c to choose character!", 240, textY2 - 90);
-						font4.draw(game.batch, "Press enter to choose level!", 240, textY2 - 110);
+						font4.draw(game.batch, "Press c to choose character!", 220, textY2 - 50);
+						font4.draw(game.batch, "Press enter to choose level!", 220, textY2 - 70);
+						font4.draw(game.batch, "Press alt-left to move to next level!", 220, textY2 - 90);
+						font4.draw(game.batch, "Press R to replay!", 220, textY2 - 110);
 
 						if (Gdx.input.isKeyPressed(Keys.C)) {
 							camera.setToOrtho(false);

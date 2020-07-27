@@ -25,38 +25,37 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class VirusFighter extends Game{
+public class VirusFighter extends Game {
 	SpriteBatch batch;
 	static Music music;
 	public static int played = 0;
-	
+
 	int timer = 0;
-	
+
 	Image img;
+
 	@Override
-	public void create () {				
+	public void create() {
 		music = Gdx.audio.newMusic(Gdx.files.internal("music/gameTheme.mp3"));
-		batch = new SpriteBatch();	
-		
-		
-		
-			setScreen(new Splash_Screen(this));
+		batch = new SpriteBatch();
+		setScreen(new Splash_Screen(this));
 
 	}
+
 	@Override
-	public void render () {
+	public void render() {
 		super.render();
-			if(MainMenu.pause == true ||Level1Layout.enteredLevel1 == true|| Level2Layout.enteredLevel2 == true || Level3Layout.enteredLevel3 == true|| Level4Layout.enteredLevel4 == true || Level5Layout.enteredLevel5 == true) {
-				music.pause();
-			}
-			else
-				music.play();	
-			
-	
+		if (MainMenu.pause == true || LevelLayout1.enteredLevel1 == true || LevelLayout2.enteredLevel2 == true
+				|| LevelLayout3.enteredLevel3 == true || LevelLayout4.enteredLevel4 == true
+				|| LevelLayout5.enteredLevel5 == true) {
+			music.pause();
+		} else
+			music.play();
+
 	}
 
 	@Override
-	public void dispose () {
+	public void dispose() {
 		super.dispose();
 	}
 }

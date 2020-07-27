@@ -257,10 +257,9 @@ public class LevelLayout5 extends ScreenAdapter{
 	public void render (float delta) {
 		update();	
 		game.batch.begin();
-		
+		game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
 		switch (state){
 	    case RUN:{
-		game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
 		if(drawInstructions==true){
 			orangeFont.setColor(Color.ORANGE);
 			orangeFont.draw(game.batch, introTitle, 180, 450); 
@@ -325,27 +324,29 @@ public class LevelLayout5 extends ScreenAdapter{
 	    		smallGreen.draw(game.batch, backToCharacter, 170, spaceShipLoc.y+200); 
 	    		smallGreen.draw(game.batch, backToLevel, 170, spaceShipLoc.y+150);
 	    		smallGreen.draw(game.batch, restart, 170, spaceShipLoc.y+100);*/
-	    		count++;
-				if(count == 1) {
-					virusExplosion.add(new SpaceShipExplosion(virusLoc.x+170, virusLoc.y+100));
-					boom.play();
-				}
-	    		font.draw(game.batch, congratulationsText, 210, spaceShipLoc.y+300);
-	    		smallGreen.setColor(Color.WHITE);
-	    		smallGreen.getData().scaleX = 0.6f;
-	    		smallGreen.draw(game.batch, "Galaxy is now free off viruses!", 162, spaceShipLoc.y+200); 
+	    		
+					font.draw(game.batch, congratulationsText, 210, spaceShipLoc.y+300);
+		    		smallGreen.setColor(Color.WHITE);
+		    		smallGreen.getData().scaleX = 0.6f;
+		    		smallGreen.draw(game.batch, "Galaxy is now free off viruses!", 162, spaceShipLoc.y+200); 
 
-	    		smallGreen.setColor(Color.RED);
-	    		smallGreen.getData().scaleX = 0.5f;
-	    		
-	    		smallGreen.draw(game.batch, "Press:", 162, spaceShipLoc.y+170); 
-	    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+150); 
-	    		smallGreen.draw(game.batch, backToLevel, 163, spaceShipLoc.y+130);
-	    		smallGreen.draw(game.batch, restart, 163, spaceShipLoc.y+110);
-	    		smallGreen.getData().scaleX = 1;
-	    		
-	    		countDataBase++;
-	    		VirusFighter.played = 5;
+		    		smallGreen.setColor(Color.RED);
+		    		smallGreen.getData().scaleX = 0.5f;
+		    		
+		    		smallGreen.draw(game.batch, "Press:", 162, spaceShipLoc.y+170); 
+		    		smallGreen.draw(game.batch, backToCharacter, 163, spaceShipLoc.y+150); 
+		    		smallGreen.draw(game.batch, backToLevel, 163, spaceShipLoc.y+130);
+		    		smallGreen.draw(game.batch, restart, 163, spaceShipLoc.y+110);
+		    		smallGreen.getData().scaleX = 1;
+		    		
+		    		VirusFighter.played = 5;
+		    		count++;
+					if(count == 1) {
+						virusExplosion.add(new SpaceShipExplosion(virusLoc.x, virusLoc.y));
+						boom.play();
+					}
+	    		//countDataBase++;
+
             	/*if(countDataBase == 1) {
             		try {
 						databaseClass.database();
@@ -392,34 +393,7 @@ public class LevelLayout5 extends ScreenAdapter{
 					boom.play();
 				}
 	    	}
-	    	try {
-	    		int counter = 0;
-				circleBullet.clear();
-				while(counter < bulletManager.size()) {
-		    		Bullet1 currentBullet = bulletManager.get(counter);
-		    		currentBullet.update();
-		    		if(currentBullet.bulletLocation.x > 0 || currentBullet.bulletLocation.x < Gdx.graphics.getWidth() || currentBullet.bulletLocation.y > 0 || currentBullet.bulletLocation.y < Gdx.graphics.getHeight()) {
-		    			game.batch.draw(bullet, currentBullet.bulletLocation.x+10, currentBullet.bulletLocation.y+20, bullet.getWidth() / 8, bullet.getHeight() / 8);
-		    			circleBullet.add(new Circle(currentBullet.bulletLocation.x+36.7f ,currentBullet.bulletLocation.y , 1));
-		    			if(Intersector.overlaps(virusBossCircle, circleBullet.get(counter))) //why circleVirus is an array list
-		   		        {
-		    				circleBullet.remove(0);
-		    				bulletManager.remove(counter);
-		    				collidBullets++;
-		   		        }	
-		    		}
-		    		else {
-		    			bulletManager.remove(counter);
-		    			if(bulletManager.size() > 0) {
-		        			counter--;
-		    			}
-		    		}
-		    		counter++;
-		    	}
-	    	}
-	    	catch(Exception e) {
-	    		e.getStackTrace();
-	    	}
+	    	
 	    	
 	    	int virusbulletCounter = 0;
 	    	circleVirus.clear();
@@ -470,6 +444,34 @@ public class LevelLayout5 extends ScreenAdapter{
 	    		virusbulletCounter++;
 	    	}
 	    	posY++;
+	    	try {
+	    		int counter = 0;
+				circleBullet.clear();
+				while(counter < bulletManager.size()) {
+		    		Bullet1 currentBullet = bulletManager.get(counter);
+		    		currentBullet.update();
+		    		if(currentBullet.bulletLocation.x > 0 || currentBullet.bulletLocation.x < Gdx.graphics.getWidth() || currentBullet.bulletLocation.y > 0 || currentBullet.bulletLocation.y < Gdx.graphics.getHeight()) {
+		    			game.batch.draw(bullet, currentBullet.bulletLocation.x+10, currentBullet.bulletLocation.y+20, bullet.getWidth() / 8, bullet.getHeight() / 8);
+		    			circleBullet.add(new Circle(currentBullet.bulletLocation.x+36.7f ,currentBullet.bulletLocation.y , 1));
+		    			if(Intersector.overlaps(virusBossCircle, circleBullet.get(counter))) //why circleVirus is an array list
+		   		        {
+		    				circleBullet.remove(0);
+		    				bulletManager.remove(counter);
+		    				collidBullets++;
+		   		        }	
+		    		}
+		    		else {
+		    			bulletManager.remove(counter);
+		    			if(bulletManager.size() > 0) {
+		        			counter--;
+		    			}
+		    		}
+		    		counter++;
+		    	}
+	    	}
+	    	catch(Exception e) {
+	    		e.getStackTrace();
+	    	}
 		}
         break;
 	}

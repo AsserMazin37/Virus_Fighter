@@ -180,10 +180,10 @@ import gameData.*;
 			public void render (float delta) {
 				game.batch.begin();
 				update();
-				
+				game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
 				switch (state){
 			    case RUN:{
-				game.batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 				if(freeze == false && freeze2 == false) {
 					font.setColor(Color.GREEN);
 			        font.getData().scaleX = 2f;

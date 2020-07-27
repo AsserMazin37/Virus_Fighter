@@ -239,10 +239,10 @@ public class LevelLayout3 extends ScreenAdapter{
 		
 		game.batch.begin();
 		update();
-		
+    	game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
+
 		switch (state){
 	    case RUN:{
-	    	game.batch.draw(background, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight()*20);
 			
 			if(instructions) {
 				orangeFont.draw(game.batch, introTitle, 180, 450); 
