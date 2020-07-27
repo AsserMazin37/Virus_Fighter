@@ -3,16 +3,16 @@ package gameData;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CharactersMenu;
 
-public class Level5 extends Character{
+public class Level5 extends Character {
 	SpriteBatch batch;
-	String background,character, virusMaster , virusBullets , bullet , levelMusic;
-	int bulletSpeed , virusBulletSpeed;
-	
-	public Level5(){
+	String background, character, virusMaster, virusBullets, bullet, levelMusic;
+	int bulletSpeed, virusBulletSpeed;
+
+	public Level5() {
 		setBackground();
 		setCharacter();
 		setCharacterBulletSpeed();
-	    setMusic();
+		setMusic();
 	}
 
 	@Override
@@ -22,13 +22,11 @@ public class Level5 extends Character{
 
 	@Override
 	public void setCharacter() {
-		if(CharactersMenu.getShipChoice() == 1) {
+		if (CharactersMenu.getShipChoice() == 1) {
 			this.character = "SpaceShips/spaceShip1.png";
-		}
-		else if(CharactersMenu.getShipChoice() == 2) {
+		} else if (CharactersMenu.getShipChoice() == 2) {
 			this.character = "SpaceShips/spaceShip2.png";
-		}
-		else {
+		} else {
 			this.character = "SpaceShips/spaceShip3.png";
 		}
 	}
@@ -37,7 +35,7 @@ public class Level5 extends Character{
 	public void setCharacterBulletSpeed() {
 		this.bulletSpeed = 20;
 	}
-	
+
 	@Override
 	public String getBackground() {
 		return this.background;
@@ -55,11 +53,11 @@ public class Level5 extends Character{
 
 	@Override
 	public void setMusic() {
-		this.levelMusic = "music/bossFight.mp3";	
+		this.levelMusic = "music/bossFight.mp3";
 	}
 
 	@Override
 	public String getMusic() {
 		return this.levelMusic;
 	}
-} 
+}
